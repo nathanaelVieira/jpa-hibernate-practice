@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NFe xmlns="http://www.portalfiscal.gov.br/nfe">
+	<infNFe>
+		<ide>
+			<cUF>43</cUF>
+			<cNF>12345678</cNF>
+			<natOp>Venda</natOp>
+			<mod>55</mod>
+			<serie>1</serie>
+			<nNF>1</nNF>
+			<dEmi>2024-01-09</dEmi>
+			<dSaiEnt>2024-01-09</dSaiEnt>
+			<tpNF>1</tpNF>
+			<cMunFG>1234567</cMunFG>
+			<tpImp>1</tpImp>
+			<ie>12345678901234</ie>
+			<cnpj>12345678901234</cnpj>
+			<xNome>Empresa Exemplo</xNome>
+			<enderEmit>
+				<xLgr>Rua Exemplo</xLgr>
+				<nro>123</nro>
+				<xCpl>Bairro Exemplo</xCpl>
+				<cMun>1234567</cMun>
+				<xMun>Cidade Exemplo</xMun>
+				<UF>SP</UF>
+				<CEP>12345-678</CEP>
+			</enderEmit>
+			<enderDest>
+				<xLgr>Rua Destinatário</xLgr>
+				<nro>456</nro>
+				<xCpl>Bairro Destinatário</xCpl>
+				<cMun>7890123</cMun>
+				<xMun>Cidade Destinatário</xMun>
+				<UF>MG</UF>
+				<CEP>98765-432</CEP>
+			</enderDest>
+			<vBC>100.00</vBC>
+			<vICMS>17.00</vICMS>
+			<vICMSDeson>0.00</vICMSDeson>
+			<vIPI>0.00</vIPI>
+			<vIPIDeson>0.00</vIPIDeson>
+			<vPIS>0.00</vPIS>
+			<vCOFINS>0.00</vCOFINS>
+			<vOutro>0.00</vOutro>
+			<vNF>117.00</vNF>
+			<vTotTrib>17.00</vTotTrib>
+			<nFat>1234567890</nFat>
+			<vFrete>0.00</vFrete>
+			<vDesc>0.00</vDesc>
+			<vCProd>100.00</vCProd>
+			<cProd>1234567890</cProd>
+			<cEAN>1234567890123</cEAN>
+			<xProd>Produto Exemplo</xProd>
+			<NCM>12345678</NCM>
+			<CFOP>5102</CFOP>
+			<uCom>UN</uCom>
+			<qCom>1.00</qCom>
+			<vUnCom>100.00</vUnCom>
+			<vProd>100.00</vProd>
+			<nItem>1</nItem>
+		</ide>
+		<det>
+			<nItem>1</nItem>
+			<prod>
+				<cProd>1234567890</cProd>
+				<cEAN>1234567890123</cEAN>
+				<xProd>Produto Exemplo</xProd>
+				<NCM>12345678</NCM>
+				<CFOP>5102</CFOP>
+				<uCom>UN</uCom>
+			</prod>
+		</det>
+	</infNFe>
+</NFe> 
