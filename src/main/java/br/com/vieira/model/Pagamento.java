@@ -23,7 +23,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING, length = 31)
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Inheritance = Herança Tradução livre
 @Table(name = "pagamento")
 public abstract class Pagamento {
 
@@ -43,7 +43,7 @@ public abstract class Pagamento {
 }
 
 //@formatter:off
-/**
+/** ESTRATÉGIA (SINGLE_TABLE)
        create table pagamento (
        DTYPE varchar(31) not null,
         pedido_id integer not null,

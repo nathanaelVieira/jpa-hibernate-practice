@@ -21,6 +21,7 @@ import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,7 +31,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "produto")
+@Table(name = "produto", uniqueConstraints = { @UniqueConstraint(columnNames = "nome") })
 public class Produto {
 
 	@EqualsAndHashCode.Include
@@ -38,10 +39,12 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(columnDefinition = "varchar(215) not null")
 	private String nome;
 
 	private String descricao;
 
+	@Column(precision = 20, scale = 2) // preco decimal(20,2)
 	private BigDecimal preco;
 
 	@Lob

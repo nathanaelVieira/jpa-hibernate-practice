@@ -11,23 +11,23 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "categoria")
+@Table(name = "categoria", uniqueConstraints = @UniqueConstraint(columnNames = "nome"))
 public class Categoria {
 
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@EqualsAndHashCode.Include
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    private String nome;
+	private String nome;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_pai_id")
-    private Categoria categoriaPai;
+	@ManyToOne
+	@JoinColumn(name = "categoria_pai_id")
+	private Categoria categoriaPai;
 
-    @OneToMany(mappedBy = "categoriaPai")
-    private List<Categoria> categorias;
+	@OneToMany(mappedBy = "categoriaPai")
+	private List<Categoria> categorias;
 
-    @ManyToMany(mappedBy = "categorias")
-    private List<Produto> produtos;
+	@ManyToMany(mappedBy = "categorias")
+	private List<Produto> produtos;
 }
