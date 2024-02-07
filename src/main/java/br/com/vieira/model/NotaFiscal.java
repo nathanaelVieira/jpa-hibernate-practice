@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -28,15 +29,15 @@ public class NotaFiscal {
 	@GeneratedValue
 	private Integer id;
 
-	@MapsId 
+	@MapsId
 	@OneToOne(optional = false)
-	@JoinColumn(name = "pedido_id")
+	@JoinColumn(name = "pedido_id", foreignKey = @ForeignKey(name = "fk_nota_fiscal_pedido"))
 	private Pedido pedido;
-	
+
 	@Lob
-	@Column(columnDefinition = "BLOB")
+	@Column(columnDefinition = "BLOB", nullable = false)
 	private byte[] xml;
 
-	@Column(name = "data_emissao")
+	@Column(name = "data_emissao", length = 6, nullable = false)
 	private Date dataEmissao;
 }

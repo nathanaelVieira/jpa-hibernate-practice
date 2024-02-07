@@ -9,6 +9,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,16 +57,20 @@ public class Produto {
 	@Column(name = "data_ultima_atualizacao", insertable = false)
 	private LocalDateTime dataUltimaAtualizacao;
 
+	//@formatter:off
 	@ManyToMany
-	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	@JoinTable(name = "produto_categoria", 
+		joinColumns = @JoinColumn(name = "produto_id", foreignKey = @ForeignKey(name = "fk_produto_categorias")), 
+		inverseJoinColumns = @JoinColumn(name = "categoria_id", foreignKey = @ForeignKey(name="fk_categoria_´produto")))
 	private List<Categoria> categorias;
+	//@formatter:on
 
 	@OneToOne(mappedBy = "produto")
 	private Estoque estoque;
 
 	@ElementCollection
 	@CollectionTable(name = "atributo_produto", joinColumns = @JoinColumn(name = "produto_id"))
-	@Column(name = "atributo")
+	@Column(name = "atributo", nullable = false, length = 50)
 	private List<Atributo> atributos;
 
 	@PostLoad

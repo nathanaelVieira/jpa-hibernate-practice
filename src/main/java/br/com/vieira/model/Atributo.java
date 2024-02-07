@@ -1,5 +1,6 @@
 package br.com.vieira.model;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import lombok.ToString;
 @Embeddable
 @ToString
 public class Atributo {
+	@Column(length = 100, nullable = false)
 	private String nome;
 	private String valor;
 }

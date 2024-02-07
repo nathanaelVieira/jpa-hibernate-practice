@@ -17,6 +17,8 @@ public class TabelaSecundariaComSecundaryTableTest extends EntityManagerConnecti
 		cliente.setNome("Cliente Teste Tabela Secundaria.");
 		cliente.setSexo(SexoCliente.NAO_ESPECIFICADO);
 		cliente.setDataNascimento(LocalDate.parse("1999-02-28"));
+		cliente.setCpf("12345678900");
+		
 
 		entityManager.getTransaction().begin();
 		entityManager.persist(cliente);
@@ -24,6 +26,7 @@ public class TabelaSecundariaComSecundaryTableTest extends EntityManagerConnecti
 		entityManager.clear();
 
 		Cliente busca = entityManager.find(Cliente.class, cliente.getId());
+		
 		Assert.assertNotNull(busca.getSexo());
 	}
 }

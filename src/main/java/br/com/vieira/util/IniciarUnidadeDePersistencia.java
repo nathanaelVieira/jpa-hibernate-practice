@@ -32,6 +32,6 @@ public class IniciarUnidadeDePersistencia {
 			entityManager.close();
 			entityManagerFactory.close();
 		}
-
+		System.out.println("Hello world!");
 	}
 }

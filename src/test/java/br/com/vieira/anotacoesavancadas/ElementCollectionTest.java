@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import br.com.vieira.connection.EntityManagerConnectionTest;
 import br.com.vieira.model.Cliente;
+import br.com.vieira.model.SexoCliente;
 
 public class ElementCollectionTest extends EntityManagerConnectionTest {
 
@@ -18,6 +19,7 @@ public class ElementCollectionTest extends EntityManagerConnectionTest {
 		// Execução
 		entityManager.getTransaction().begin();
 		cliente.setTags(Arrays.asList("Bonus", "Premiun"));
+		cliente.setSexo(SexoCliente.NAO_ESPECIFICADO);
 		entityManager.getTransaction().commit();
 		entityManager.clear();
 

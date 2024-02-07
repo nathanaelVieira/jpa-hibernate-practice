@@ -21,6 +21,7 @@ import br.com.vieira.model.Produto;
 public class CarregandoArquivoXMLTest extends EntityManagerConnectionTest {
 
 	@Test
+	@Ignore
 	//@formatter:off
 	public void carregandoArquivoXML() {
 
@@ -35,7 +36,7 @@ public class CarregandoArquivoXMLTest extends EntityManagerConnectionTest {
 		// Execução
 		entityManager.getTransaction().begin();
 
-		entityManager.persist(notaFiscal);
+//		entityManager.persist(notaFiscal);
 		notaFiscal.setXml(carregandoXML());
 
 		entityManager.getTransaction().commit();

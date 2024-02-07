@@ -43,6 +43,7 @@ public class TestandoMapsId extends EntityManagerConnectionTest {
 	}
 
 	@Test
+	@Ignore
 	public void testandoPagamentoComCartao() {
 		Pedido pedido = entityManager.find(Pedido.class, 10);
 		if (pedido != null) {

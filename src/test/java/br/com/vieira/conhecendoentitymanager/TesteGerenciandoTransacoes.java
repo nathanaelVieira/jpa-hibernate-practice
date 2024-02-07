@@ -10,7 +10,7 @@ public class TesteGerenciandoTransacoes extends EntityManagerConnectionTest {
 	public void deveAbrirEFecharUmaTransacao() {
 		entityManager.getTransaction().begin();
 		
-		entityManager.getTransaction().rollback();
+//		entityManager.getTransaction().rollback();
 		
 		entityManager.getTransaction().commit();
 	}

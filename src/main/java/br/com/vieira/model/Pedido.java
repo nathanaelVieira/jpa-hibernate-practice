@@ -4,12 +4,14 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +26,6 @@ import com.algaworks.ecommerce.listeners.GerarNotaFiscalListener;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * <h2>Classe Pedido</h2>
@@ -32,9 +33,10 @@ import lombok.ToString;
  * Uma classe usada como entidade de negócio.
  * 
  * @optional: cliente
+ * @not-null: 
  *            </p>
  */
-@Getter
+@Getter 
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 /*
@@ -43,48 +45,38 @@ import lombok.ToString;
 @EntityListeners({ GerarNotaFiscalListener.class })
 @Entity
 @Table(name = "pedido")
-@ToString(onlyExplicitlyIncluded = true)
-
 public class Pedido {
-
+	
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "cliente_id")
-	@ToString.Include
+	@ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
 	private Cliente cliente;
 
-	@OneToMany(mappedBy = "pedido")
+	@OneToMany(mappedBy = "pedido", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	private List<ItemPedido> itens;
 
 	@Column(name = "data_pedido")
-	@ToString.Include
 	private LocalDateTime dataPedido;
 
 	@Column(name = "data_conclusao")
-	@ToString.Include
 	private LocalDateTime dataConclusao;
 
 	@OneToOne(mappedBy = "pedido")
-	@ToString.Include
 	private NotaFiscal notaFiscal;
 
-	@ToString.Include
 	private BigDecimal total;
 
 	@Enumerated(EnumType.STRING)
-	@ToString.Include
 	private StatusPedido status;
 
 	@OneToOne(mappedBy = "pedido")
-	@ToString.Include
 	private Pagamento pagamento;
 
 	@Embedded
-	@ToString.Include
 	private EnderecoEntregaPedido enderecoEntrega;
 
 	public boolean isPago() {

@@ -1,5 +1,6 @@
 package br.com.vieira.model;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -38,6 +39,7 @@ public abstract class Pagamento {
 	private Pedido pedido;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 30)
 	private StatusPagamento status;
 
 }
