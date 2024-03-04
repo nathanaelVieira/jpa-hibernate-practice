@@ -2,9 +2,9 @@ package br.com.vieira.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -18,7 +18,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -58,7 +57,7 @@ public class Produto {
 	private LocalDateTime dataUltimaAtualizacao;
 
 	//@formatter:off
-	@ManyToMany
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinTable(name = "produto_categoria", 
 		joinColumns = @JoinColumn(name = "produto_id", foreignKey = @ForeignKey(name = "fk_produto_categorias")), 
 		inverseJoinColumns = @JoinColumn(name = "categoria_id", foreignKey = @ForeignKey(name="fk_categoria_´produto")))
@@ -73,15 +72,15 @@ public class Produto {
 	@Column(name = "atributo", nullable = false, length = 50)
 	private List<Atributo> atributos;
 
-	@PostLoad
-	private void imprimirInformacao() {
-		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		System.out.printf("#CAPTURA DATE: %s%n", dateFormat.format(LocalDateTime.now()));
-	}
+//	@PostLoad
+//	private void imprimirInformacao() {
+//		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//		System.out.printf("#CAPTURA DATE: %s%n", dateFormat.format(LocalDateTime.now()));
+//	}
 
 	@PrePersist
 	private void gerandoDate() {
-		if (getDataCriacao() != null)
+		if (dataCriacao == null)
 			setDataCriacao(LocalDateTime.now());
 	}
 
@@ -89,4 +88,14 @@ public class Produto {
 	private void atualizandoBaseDeDados() {
 		setDataUltimaAtualizacao(LocalDateTime.now());
 	}
+
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco
+				+ ", dataCriacao=" + dataCriacao + ", dataUltimaAtualizacao="
+				+ dataUltimaAtualizacao + ", categorias=" + categorias + ", estoque=" + estoque + ", atributos="
+				+ atributos + "]";
+	}
+	
+	
 }

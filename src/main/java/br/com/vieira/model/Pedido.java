@@ -19,6 +19,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import com.algaworks.ecommerce.listeners.GerarNotaFiscalListener;
@@ -33,10 +35,10 @@ import lombok.Setter;
  * Uma classe usada como entidade de negócio.
  * 
  * @optional: cliente
- * @not-null: 
+ * @not-null:
  *            </p>
  */
-@Getter 
+@Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 /*
@@ -46,7 +48,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "pedido")
 public class Pedido {
-	
+
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,8 +57,8 @@ public class Pedido {
 	@ManyToOne(optional = false, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
 	private Cliente cliente;
-
-	@OneToMany(mappedBy = "pedido", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	
+	@OneToMany(mappedBy = "pedido", cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE }) 
 	private List<ItemPedido> itens;
 
 	@Column(name = "data_pedido")
@@ -82,4 +84,37 @@ public class Pedido {
 	public boolean isPago() {
 		return StatusPedido.PAGO.equals(status);
 	}
+
+	public void calcularTotal() {
+		if (itens != null) {
+			total = itens.stream()
+					.map(element -> new BigDecimal(element.getQuantidade()).multiply(element.getPrecoProduto()))
+					.reduce(BigDecimal.ZERO, BigDecimal::add);
+		} else {
+			total = BigDecimal.ZERO;
+		}
+	}
+	
+	
+	
+
+	@PrePersist
+	public void aoPersistir() {
+		dataPedido = LocalDateTime.now();
+		calcularTotal();
+	}
+
+	@PreUpdate
+	public void aoAtualizar() {
+		dataConclusao = LocalDateTime.now().minusMonths(3);
+		calcularTotal();
+	}
+
+	@Override
+	public String toString() {
+		return "Pedido [id=" + id + ", cliente=" + cliente + ", itens=" + itens + ", dataPedido=" + dataPedido
+				+ ", dataConclusao=" + dataConclusao + ", notaFiscal=" + notaFiscal + ", total=" + total + ", status="
+				+ status + ", pagamento=" + pagamento + ", enderecoEntrega=" + enderecoEntrega + "]";
+	}
+
 }

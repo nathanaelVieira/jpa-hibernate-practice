@@ -11,7 +11,7 @@ import br.com.vieira.model.Produto;
 public class IniciarUnidadeDePersistencia {
 
 	public static void main(String[] args) {
-		boolean condicao = true;
+		boolean condicao = false;
 		if (condicao) {
 			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("mysql-workbench");
 			EntityManager entityManager = entityManagerFactory.createEntityManager();
